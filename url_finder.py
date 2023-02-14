@@ -19,7 +19,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Ultimate Pentest Tool,un couteau suisse python pour le Pentest ;)")
 
     #es différents Arg
-    parser.add_argument("-m", type=int, help="Le mode que vous souhaitez utiliser: 1)Recherche de toutes les URL relatives à un site |2) Endpoint Checker")
+    parser.add_argument("-m", type=int, help="Le mode que vous souhaitez utiliser: 1)Recherche de toutes les URL relatives à un site |2) Endpoint Checker |3)Endpoint bruteforce")
     parser.add_argument("-u", type=str, help="L'URL de base que vous souhaitez tester")
 
     #"Création" des arguments
@@ -302,7 +302,7 @@ elif args.m == 2:
 elif args.m == 3:
 
         #On travail avec le fichier contenannt les endpoint
-        list = open('endpoint_bruteforce/rockyou.txt', 'r', encoding="UTF-8")
+        list = open('endpoint_bruteforce/test.txt', 'r', encoding="UTF-8")
 
         #La variable fichier contient tous les mots
         contenu = list.readlines()
@@ -328,7 +328,7 @@ elif args.m == 3:
             #On fait la request
             r = requests.get(modify_endpoint, headers=headers)
 
-            if r.status_code == 200:
+            if r.status_code == 200 or r.status_code == 401:
                 print(Fore.GREEN + Style.BRIGHT + "=============================================================================================================================================================================\n\n")
                 print("Trying ",modify_endpoint)
                 print(Fore.GREEN + Style.BRIGHT + "URL testée: ",modify_endpoint,"\n","Status:", r)
@@ -351,7 +351,6 @@ elif args.m == 3:
                 percentage = i * 100 / total
                 print(Fore.LIGHTYELLOW_EX + Style.BRIGHT + "\n",percentage,"%")
 
-                accept_tab.append(modify_endpoint)
                 print(Fore.RED + Style.BRIGHT + "=============================================================================================================================================================================\n\n")
 
 
